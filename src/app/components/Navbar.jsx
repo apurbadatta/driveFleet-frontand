@@ -13,13 +13,13 @@ export default function Navbar() {
     <nav className="bg-slate-900 text-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         
-        {/* Logo */}
+      
         <Link href="/" className="text-2xl font-bold tracking-wider text-blue-400 flex items-center gap-2">
           <FaCar className="text-blue-500 text-3xl" />
           <span>DriveFleet</span>
         </Link>
 
-        {/* Desktop Navigation Links  */}
+      
         <div className="hidden md:flex space-x-6 items-center">
           <Link href="/" className="hover:text-blue-400 transition">Home</Link>
           <Link href="/cars" className="hover:text-blue-400 transition">Explore Cars</Link>
@@ -31,7 +31,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Auth / Profile Section (Desktop) */}
+     
         <div className="hidden md:block relative">
           {user ? (
             <div>
@@ -67,7 +67,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Menu Button  */}
+       
         <div className="md:hidden flex items-center">
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
@@ -78,7 +78,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Responsive Menu Dropdown */}
+     
       {mobileMenuOpen && (
         <div className="md:hidden bg-slate-800 border-t border-slate-700 px-4 pt-2 pb-4 space-y-3 animate-fadeIn">
           <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block hover:text-blue-400 transition py-1">Home</Link>

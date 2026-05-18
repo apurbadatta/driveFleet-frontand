@@ -93,7 +93,7 @@ export default function Footer() {
       </div>
 
       <div className="text-center text-xs mt-12 pt-4 border-t border-slate-800 tracking-wider">
-        &copy; {new Date().getFullYear()}{" "}
+        &copy; {new Date().getFullYear()}
         <span className="text-blue-400 font-medium">DriveFleet</span>. All
         rights reserved.
       </div>

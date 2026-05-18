@@ -14,7 +14,7 @@ export default function NotFound() {
       </div>
 
       <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
-        Oops! You've Driven Off the Map
+        Oops! You have Driven Off the Map
       </h2>
       <p className="text-slate-500 max-w-md mb-8 text-sm md:text-base">
         The page you are looking for might have been removed, had its name
