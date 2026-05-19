@@ -1,70 +1,61 @@
-'use client';
+"use client";
+import { authClient } from "@/lib/auth-client";
+import {
+  Button,
+  Card,
+  Description,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  TextField,
+} from "@heroui/react";
+import Link from "next/link"; // ✅ পাথ পরিবর্তন করে next/link করা হলো
+import { FaGoogle, FaCheck } from "react-icons/fa"; 
+import { toast } from "react-hot-toast"; 
+import { useState } from "react";
 
-import React, { useState } from 'react';
-import { Card, CardHeader, Input, Button, Form } from "@heroui/react"; 
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { signIn } from "@/lib/auth-client"; 
-import { FaGoogle, FaEnvelope } from "react-icons/fa"; 
-
-export default function LoginPage() {
-  const router = useRouter();
+export default function SignInPage() {
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    
-   
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    const { email, password } = data;
-
     setLoading(true);
 
-    try {
-      const { error ,data } = await signIn.email({
-        email: email,
-        password: password,
-        callbackURL: "/cars" 
-      });
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-      if (error) {
-        toast.error(error.message || 'Login failed. Please check your credentials.');
-        return;
-      }
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+      callbackURL: "/",
+    });
 
-      toast.success('Successfully logged in! 🔑');
-      router.push('/cars');
-    } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong, please try again.');
-    } finally {
+    if (data) {
+      toast.success("Success! You have signed in.");
+    }
+    if (error) {
+      toast.error(error.message || "Something went wrong! Please try again");
       setLoading(false);
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setGoogleLoading(true);
-    try {
-      toast.loading('Logging in with Google...');
-    } catch (error) {
-        console.error(error);
-        toast.error('Google login failed.');
-    } finally {
-        setGoogleLoading(false);
-    }
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
     <div className="container mx-auto px-6 py-20 min-h-[90vh]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-     
+        
+        {/* ⬅️ বাম পাশের কলাম */}
         <div className="lg:max-w-lg space-y-6">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+          <span className="text-xs font-bold text-[#A8B548] uppercase tracking-widest">
             SECURE ACCESS
           </span>
-          <h1 className="text-5xl md:text-6xl font-black text-slate-950 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-black text-slate-950 leading-tight tracking-tight">
             Welcome back to DriveFleet
           </h1>
           <p className="text-slate-600 text-lg leading-relaxed">
@@ -72,72 +63,101 @@ export default function LoginPage() {
           </p>
         </div>
 
+        {/* ➡️ ডান পাশের কলাম */}
         <div className="flex justify-center lg:justify-end">
-          <Card className="max-w-[450px] w-full p-8 shadow-2xl rounded-3xl border border-slate-100 bg-white">
-            <CardHeader className="flex flex-col gap-1 items-start pb-6 px-0">
-              <h1 className="text-3xl font-black text-slate-950">Login</h1>
-              <p className="text-sm text-slate-500">Sign in to continue to your dashboard</p>
-            </CardHeader>
-            
-            <div className="py-2">
-              <Form onSubmit={handleLogin} className="flex flex-col gap-6 w-full">
-                
-              
-                <div className="w-full">
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Email</label>
-                  <Input
-                    type="email"
-                    name="email" 
-                    variant="bordered"
-                    required
-                    placeholder="name@email.com"
-                    startContent={<FaEnvelope className="text-slate-400 mr-2" />}
-                    className="w-full text-slate-800"
-                  />
-                </div>
-                
-              
-                <div className="w-full">
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Password</label>
-                  <Input
-                    type="password"
-                    name="password" 
-                    variant="bordered"
-                    required
-                    placeholder="••••••••"
-                    className="w-full text-slate-800"
-                  />
-                </div>
+          <Card className="max-w-[480px] w-full p-8 shadow-2xl rounded-3xl border border-slate-100 bg-white">
+            <h1 className="text-3xl font-black text-slate-950 mb-6">Sign In</h1>
 
-           
-                <Button 
-                  type="submit" 
-                  className="w-full font-bold py-7 bg-[#0062ff] hover:bg-[#000bdc] text-slate-950 rounded-2xl text-base shadow-md transition"
-                  isLoading={loading}
-                >
-                  Login
-                </Button>
-                
+            <Form className="flex w-full flex-col gap-5" onSubmit={onSubmit}>
               
-                <Button 
+              <TextField
+                isRequired
+                name="email"
+                type="email"
+                className="w-full"
+                validate={(value) => {
+                  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                    return "Please enter a valid email address";
+                  }
+                  return null;
+                }}
+              >
+                <Label className="block text-sm font-bold text-slate-700 mb-2">Email</Label>
+                <Input 
+                  placeholder="john@example.com" 
+                  className="w-full text-slate-800 bg-slate-50 border-slate-200"
                   variant="bordered"
-                  className="w-full font-bold py-7 border border-slate-200 text-slate-900 rounded-2xl text-base hover:bg-slate-50 transition"
-                  startContent={<FaGoogle className="text-red-500 mr-1" />}
-                  isLoading={googleLoading}
-                  onClick={handleGoogleLogin}
+                />
+                <FieldError className="text-xs text-red-500 mt-1" />
+              </TextField>
+
+              <TextField
+                isRequired
+                minLength={8}
+                name="password"
+                type="password"
+                className="w-full"
+                validate={(value) => {
+                  if (value.length < 8) {
+                    return "Password must be at least 8 characters";
+                  }
+                  if (!/[A-Z]/.test(value)) {
+                    return "Password must contain at least one uppercase letter";
+                  }
+                  if (!/[0-9]/.test(value)) {
+                    return "Password must contain at least one number";
+                  }
+                  return null;
+                }}
+              >
+                <Label className="block text-sm font-bold text-slate-700 mb-2">Password</Label>
+                <Input 
+                  placeholder="Enter your password" 
+                  className="w-full text-slate-800 bg-slate-50 border-slate-200"
+                  variant="bordered"
+                />
+                <Description className="text-[11px] text-slate-400 mt-1 block">
+                  Must be at least 8 characters with 1 uppercase and 1 number
+                </Description>
+                <FieldError className="text-xs text-red-500 mt-1" />
+              </TextField>
+
+              <div className="flex gap-3 mt-2 w-full">
+                <Button
+                  type="submit"
+                  isLoading={loading}
+                  className="w-full font-bold py-7 bg-blue-600 hover:bg-blue-700 text-slate-950 rounded-2xl text-base shadow-md transition flex items-center justify-center gap-2"
                 >
-                  Google Login
+                  {!loading && <FaCheck className="text-sm" />} 
+                  {loading ? "Checking..." : "Submit"}
                 </Button>
+              </div>
+            </Form>
 
-              </Form>
-
-              <p className="text-center text-sm text-slate-600 mt-8">
-                New to DriveFleet?{' '}
-                <Link href="/register" className="text-blue-600 font-bold hover:underline">
-                  Register
-                </Link>
-              </p>
+            <div className="flex items-center my-6 gap-4">
+              <div className="h-[1px] flex-1 bg-slate-200"></div>
+              <span className="text-slate-400 text-sm font-medium">OR</span>
+              <div className="h-[1px] flex-1 bg-slate-200"></div>
             </div>
+
+            <Button
+              onClick={handleGoogleSignIn}
+              variant="bordered"
+              className="w-full font-bold py-7 border border-slate-200 text-slate-900 rounded-2xl text-base hover:bg-slate-50 transition flex items-center justify-center gap-3 shadow-sm"
+            >
+              <FaGoogle className="text-red-500 text-lg" />
+              Continue with Google
+            </Button>
+
+            <p className="text-center text-sm text-slate-600 mt-8">
+              Do not have an account?{" "}
+              <Link
+                href="/register"
+                className="text-blue-600 font-bold hover:underline"
+              >
+                Register
+              </Link>
+            </p>
           </Card>
         </div>
 

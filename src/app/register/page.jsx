@@ -156,7 +156,7 @@ export default function SignUpPage() {
               <div className="flex flex-col gap-3 mt-2">
                 <Button 
                   type="submit"
-                  className="w-full font-bold py-7 bg-[#CCFF00] hover:bg-[#b0dc00] text-slate-950 rounded-2xl text-base shadow-md transition flex items-center justify-center gap-2"
+                  className="w-full font-bold py-7 bg-blue-600 hover:bg-blue-700 text-slate-950 rounded-2xl text-base shadow-md transition flex items-center justify-center gap-2"
                 >
                   <FaCheck className="text-sm" /> 
                   Register
