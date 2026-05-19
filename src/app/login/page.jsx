@@ -10,7 +10,7 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import Link from "next/link"; // ✅ পাথ পরিবর্তন করে next/link করা হলো
+import Link from "next/link"; 
 import { FaGoogle, FaCheck } from "react-icons/fa"; 
 import { toast } from "react-hot-toast"; 
 import { useState } from "react";
