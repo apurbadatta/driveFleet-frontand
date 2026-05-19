@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 
@@ -74,7 +75,7 @@ const HomePageCard = async ({cars}) => {
               </div>
             </div>
 
-            <button
+            <Link href={`/cars/${car._id}`}> <button
               disabled={!car.isAvailable}
               className={`w-full mt-6 py-3 rounded-xl font-semibold text-sm transition-all shadow-sm ${
                 car.isAvailable
@@ -82,8 +83,8 @@ const HomePageCard = async ({cars}) => {
                   : "bg-slate-100 text-slate-400 cursor-not-allowed"
               }`}
             >
-              {car.isAvailable ? "Book Now" : "Unavailable"}
-            </button>
+              {car.isAvailable ? "Details Now" : "Unavailable"}
+            </button></Link>
 
           </div>
         </div>
