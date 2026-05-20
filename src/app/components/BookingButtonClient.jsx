@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { Button, Modal } from "@heroui/react";
 import { CircleCheck, CircleInfo } from "@gravity-ui/icons";
 
-export default function BookingButtonClient({ car }) {
+export default function  BookingButtonClient ({ car }) {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const [loading, setLoading] = useState(false);
@@ -20,9 +20,12 @@ export default function BookingButtonClient({ car }) {
     setIsOpen(true);
   };
 
+  
+
   const handleBookingConfirm = async () => {
     setIsOpen(false);
     setLoading(true);
+    const {data: tokenData}= await authClient.token()
 
     const bookingData = {
       carId: car._id,
@@ -45,7 +48,9 @@ export default function BookingButtonClient({ car }) {
         process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
       const res = await fetch(`${serverUrl}/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          authorization:`Bearer ${tokenData?.token}`
+         },
         body: JSON.stringify(bookingData),
       });
 

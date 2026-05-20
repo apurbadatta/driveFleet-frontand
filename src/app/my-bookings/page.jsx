@@ -11,6 +11,8 @@ import {
 import Link from "next/link";
 import DeleteBookingModal from "../components/DeleteBookingModal";
 
+
+
 const MyBookingsPage = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;

@@ -35,7 +35,7 @@ export default function SignUpPage() {
     });
     if (!error) {
       await authClient.signOut();
-      router.push("/signin");
+      router.push("/login");
     }
 
     if (error) {
