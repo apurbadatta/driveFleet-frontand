@@ -4,7 +4,7 @@ import { FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 async function getCars() {
   try {
     
-    const res = await fetch(`${process.env.SERVER_URL}/cars`, { cache: "no-store" });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/cars`, { cache: "no-store" });
     
     if (!res.ok) {
       throw new Error("Failed to fetch data");

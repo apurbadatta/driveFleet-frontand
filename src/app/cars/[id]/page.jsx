@@ -5,7 +5,7 @@ import BookingButtonClient from '@/app/components/BookingButtonClient';
 
 
 async function getCarDetails(id) {
-    const serverUrl = process.env.SERVER_URL || 'http://localhost:8000';
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:8000';
     const res = await fetch(`${serverUrl}/cars/${id}`, { cache: "no-store" }); 
     if (!res.ok) {
       throw new Error("Failed to fetch car details");

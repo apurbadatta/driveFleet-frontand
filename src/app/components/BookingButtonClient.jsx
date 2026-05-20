@@ -37,7 +37,8 @@ export default function BookingButtonClient({ car }) {
     };
 
     try {
-      const res = await fetch("http://localhost:8000/bookings", {
+       const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+      const res = await fetch(`${serverUrl}/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),

@@ -26,7 +26,7 @@ export default function AddCarPage() {
     e.preventDefault();
     setLoading(true);
 
-      const serverUrl = process.env.SERVER_URL || 'http://localhost:8000';
+      const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:8000';
       const res = await fetch(`${serverUrl}/cars`, {
         method: 'POST',
         headers: {

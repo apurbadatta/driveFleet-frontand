@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import HomePageCard from "./HomePageCard";
 
 async function getHomeCars() {
-  const serverUrl = process.env.SERVER_URL;
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${serverUrl}/cars?limit=6`, { cache: "no-store" });
 
   return res.json();

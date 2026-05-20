@@ -50,7 +50,7 @@ export default function SignInPage() {
     <div className="container mx-auto px-6 py-20 min-h-[90vh]">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         
-        {/* ⬅️ বাম পাশের কলাম */}
+  
         <div className="lg:max-w-lg space-y-6">
           <span className="text-xs font-bold text-[#A8B548] uppercase tracking-widest">
             SECURE ACCESS
@@ -63,7 +63,6 @@ export default function SignInPage() {
           </p>
         </div>
 
-        {/* ➡️ ডান পাশের কলাম */}
         <div className="flex justify-center lg:justify-end">
           <Card className="max-w-[480px] w-full p-8 shadow-2xl rounded-3xl border border-slate-100 bg-white">
             <h1 className="text-3xl font-black text-slate-950 mb-6">Sign In</h1>
