@@ -20,7 +20,7 @@ export default function BookingButtonClient({ car }) {
 
     setLoading(true);
 
-    // 💾 ডাটাবেজে আপনার রিকোয়েস্ট অনুযায়ী সঠিক ফরম্যাটে ডেটা পাঠানো
+    
     const bookingData = {
       carId: car._id,
       carName: car.carName,
@@ -28,7 +28,7 @@ export default function BookingButtonClient({ car }) {
       carModel: car.carType,
       totalPrice: car.pricePerDay,
       
-      // Better Auth থেকে লগইন থাকা ইউজারের ডেটা 👤
+    
       bookedByName: user.name,
       bookedByEmail: user.email,
       bookedByUserImage: user.image,
