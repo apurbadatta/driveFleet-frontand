@@ -14,7 +14,7 @@ import { auth } from "@/lib/auth";
 
 async function getCarDetails(id) {
   const serverUrl =
-    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
+    process.env.NEXT_PUBLIC_SERVER_URL;
 
   //  token
   const { token } = await auth.api.getToken({
