@@ -13,6 +13,30 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import NotFound from "@/app/not-found";
 
+export async function generateMetadata({ params }) {
+  const { id } = params;
+  
+  try {
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
+    const res = await fetch(`${serverUrl}/cars/${id}`);
+    const car = await res.json();
+    
+    return {
+      title: `${car.carName || "Car Details"} | DriveFleet`,
+      description: `Rent the premium ${car.carName}. Type: ${car.carType}, Seats: ${car.seats}, Price: $${car.pricePerDay}/day. Book now!`,
+    };
+  } catch (error) {
+    return {
+      title: "Car Details | DriveFleet",
+      description: "View details of this premium rental car on DriveFleet.",
+    };
+  }
+}
+
+
+
+
+
 async function getCarDetails(id) {
   const serverUrl =
     process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";

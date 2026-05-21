@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { FaMapMarkerAlt, FaUsers } from "react-icons/fa";
+export const metadata = {
+  title: "Explore Cars | DriveFleet",
+  description: "Browse our extensive fleet of premium cars, sedans, SUVs, and luxury vehicles available for rent at the best prices.",
+  keywords: ["browse cars", "SUV rental", "sedan rent", "affordable car hire"],
+};
 
 async function getCars() {
   try {
