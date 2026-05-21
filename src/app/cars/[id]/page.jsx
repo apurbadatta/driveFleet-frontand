@@ -14,7 +14,7 @@ import { auth } from "@/lib/auth";
 
 async function getCarDetails(id) {
   const serverUrl =
-    process.env.NEXT_PUBLIC_SERVER_URL;
+    process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:8000";
 
   //  token
   const { token } = await auth.api.getToken({
@@ -22,17 +22,21 @@ async function getCarDetails(id) {
   });
   // console.log(token);
 
-  const res = await fetch(`${serverUrl}/cars/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+ const res = await fetch(`${serverUrl}/cars/${id}`, {
+  cache: "no-store",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch car details");
-  }
+// console.log(res.status);
+const data = await res.json();
 
-  return res.json();
+if (!res.ok) {
+  throw new Error(data.message || "Failed to fetch car details");
+}
+
+return data;
 }
 
 const CarDetailsPage = async ({ params }) => {
