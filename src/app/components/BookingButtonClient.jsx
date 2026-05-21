@@ -25,8 +25,21 @@ export default function  BookingButtonClient ({ car }) {
   const handleBookingConfirm = async () => {
     setIsOpen(false);
     setLoading(true);
-    const {data: tokenData}= await authClient.token()
 
+
+      const getToken = async () => {
+    try {
+      const tokenData = await authClient.getToken();
+      return tokenData?.token || null;
+    } catch (err) {
+      console.error("Token error:", err);
+      return null;
+    }
+  };
+
+
+
+    
     const bookingData = {
       carId: car._id,
       carName: car.carName,
