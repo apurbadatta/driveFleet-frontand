@@ -29,7 +29,7 @@ async function getCarDetails(id) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch car details");
+    return null;
   }
 
   return res.json();
@@ -38,6 +38,7 @@ async function getCarDetails(id) {
 const CarDetailsPage = async ({ params }) => {
   const { id } = await params;
   const car = await getCarDetails(id);
+  
 
   if (!car) {
     return (
