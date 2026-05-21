@@ -11,6 +11,7 @@ import {
 import BookingButtonClient from "@/app/components/BookingButtonClient";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import NotFound from "@/app/not-found";
 
 async function getCarDetails(id) {
   const serverUrl =
@@ -42,17 +43,7 @@ const CarDetailsPage = async ({ params }) => {
 
   if (!car) {
     return (
-      <div className="container mx-auto px-4 py-24 text-center">
-        <h2 className="text-2xl font-bold text-slate-800 mb-4">
-          Car details not found!
-        </h2>
-        <Link
-          href="/cars"
-          className="text-blue-600 font-semibold inline-flex items-center gap-2 hover:underline"
-        >
-          <FaArrowLeft /> Back to Explore Cars
-        </Link>
-      </div>
+      <NotFound></NotFound>
     );
   }
 
