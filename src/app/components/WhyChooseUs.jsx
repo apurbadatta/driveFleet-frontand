@@ -1,7 +1,7 @@
 import React from "react";
 import { FaShieldAlt, FaTags, FaHeadphones, FaSmile } from "react-icons/fa";
 
-const WhyChooseUs = () => {
+const WhyChooseUsPage = () => {
   return (
     <section className="py-20 bg-slate-50 border-t border-b border-slate-100">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -81,4 +81,4 @@ const WhyChooseUs = () => {
   );
 };
 
-export default WhyChooseUs;
+export default WhyChooseUsPage;
