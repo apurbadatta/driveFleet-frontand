@@ -1,7 +1,7 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
 
-const TestimonialsPage = () => {
+const Testimonials = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -106,4 +106,4 @@ const TestimonialsPage = () => {
   );
 };
 
-export default TestimonialsPage;
+export default Testimonials;

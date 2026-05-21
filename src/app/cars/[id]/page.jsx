@@ -22,21 +22,17 @@ async function getCarDetails(id) {
   });
   // console.log(token);
 
- const res = await fetch(`${serverUrl}/cars/${id}`, {
-  cache: "no-store",
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
+  const res = await fetch(`${serverUrl}/cars/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-// console.log(res.status);
-const data = await res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch car details");
+  }
 
-if (!res.ok) {
-  throw new Error(data.message || "Failed to fetch car details");
-}
-
-return data;
+  return res.json();
 }
 
 const CarDetailsPage = async ({ params }) => {
