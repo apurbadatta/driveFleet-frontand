@@ -21,13 +21,16 @@ export default function AllCarPage({ initialCars }) {
     setSearchQuery(searchInput);
     setSelectedCategory(categoryInput);
   };
+
   const filteredCars = initialCars.filter((car) => {
     const matchesSearch = car.carName
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
+
     const matchesCategory =
       selectedCategory === "All" ||
       car.carType.toLowerCase() === selectedCategory.toLowerCase();
+
     return matchesSearch && matchesCategory;
   });
 
@@ -47,17 +50,20 @@ export default function AllCarPage({ initialCars }) {
         <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-3">
           Explore Our <span className="text-blue-600">Premium Fleet</span>
         </h1>
+
         <p className="text-slate-500 text-sm md:text-base">
           Find the perfect vehicle for your next journey. Select from luxury
           sedans, rugged SUVs, or fuel-efficient hatchbacks.
         </p>
       </div>
+
       <form
         onSubmit={handleSearch}
         className="max-w-4xl mx-auto bg-slate-50 border border-slate-200/80 p-3 rounded-2xl md:rounded-full shadow-sm flex flex-col md:flex-row items-center gap-3 mb-12"
       >
         <div className="relative w-full flex-grow flex items-center pl-4 bg-white border border-slate-200 md:border-none rounded-xl md:rounded-none h-12">
           <FaSearch className="text-slate-400 mr-3 shrink-0" />
+
           <input
             type="text"
             placeholder="Search by car name..."
@@ -74,15 +80,21 @@ export default function AllCarPage({ initialCars }) {
             className="w-full bg-transparent text-slate-700 text-sm font-medium focus:outline-none cursor-pointer appearance-none pr-8 z-10"
           >
             {categories.map((cat) => (
-              <option key={cat} value={cat} className="text-slate-800 bg-white">
+              <option
+                key={cat}
+                value={cat}
+                className="text-slate-800 bg-white"
+              >
                 {cat === "All" ? "All Categories" : cat}
               </option>
             ))}
           </select>
+
           <div className="absolute right-4 pointer-events-none text-slate-400 text-xs">
             <FaChevronDown />
           </div>
         </div>
+
         <button
           type="submit"
           className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 h-12 rounded-xl md:rounded-full text-sm transition-colors shadow-sm shrink-0 active:scale-[0.98]"
@@ -111,6 +123,7 @@ export default function AllCarPage({ initialCars }) {
                   alt={car.carName}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+
                 <span
                   className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${
                     car.isAvailable
@@ -121,11 +134,13 @@ export default function AllCarPage({ initialCars }) {
                   {car.isAvailable ? "Available" : "Rented Out"}
                 </span>
               </div>
+
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded">
                     {car.carType}
                   </span>
+
                   <div className="text-slate-900">
                     <span className="text-xl font-extrabold">
                       ${car.pricePerDay}
@@ -137,6 +152,7 @@ export default function AllCarPage({ initialCars }) {
                 <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {car.carName}
                 </h3>
+
                 <p className="text-slate-500 text-xs md:text-sm line-clamp-2 mb-4 leading-relaxed">
                   {car.description}
                 </p>
@@ -146,7 +162,13 @@ export default function AllCarPage({ initialCars }) {
                     <FaUsers className="text-blue-500" />
                     <span>{car.seats} Seats</span>
                   </div>
+
                   <div className="flex items-center gap-2">
+                    <span>📘</span>
+                    <span>{car.booking_count || 0} Bookings</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 col-span-2">
                     <FaMapMarkerAlt className="text-blue-500 shrink-0" />
                     <span className="truncate">{car.location}</span>
                   </div>
